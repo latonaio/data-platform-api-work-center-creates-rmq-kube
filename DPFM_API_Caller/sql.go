@@ -2,8 +2,8 @@ package dpfm_api_caller
 
 import (
 	"context"
-	dpfm_api_output_formatter "data-platform-api-work-center-creates-rmq-kube/DPFM_API_Output_Formatter"
 	dpfm_api_input_reader "data-platform-api-work-center-creates-rmq-kube/DPFM_API_Input_Reader"
+	dpfm_api_output_formatter "data-platform-api-work-center-creates-rmq-kube/DPFM_API_Output_Formatter"
 	dpfm_api_processing_formatter "data-platform-api-work-center-creates-rmq-kube/DPFM_API_Processing_Formatter"
 	"sync"
 
@@ -34,7 +34,7 @@ func (c *DPFMAPICaller) createSqlProcess(
 	}
 
 	data := &dpfm_api_output_formatter.Message{
-		General:         general,
+		General:            general,
 		ProductionCapacity: productionCapacity,
 	}
 
@@ -64,7 +64,7 @@ func (c *DPFMAPICaller) updateSqlProcess(
 	}
 
 	data := &dpfm_api_output_formatter.Message{
-		General:         general,
+		General:            general,
 		ProductionCapacity: productionCapacity,
 	}
 

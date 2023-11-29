@@ -1,6 +1,6 @@
 # data-platform-api-work-center-creates-rmq-kube
 
-data-platform-api-work-center-creates-rmq-kube は、周辺業務システム　を データ連携基盤 と統合することを目的に、API でプラントデータを登録/更新するマイクロサービスです。
+data-platform-api-work-center-creates-rmq-kube は、周辺業務システム　を データ連携基盤 と統合することを目的に、API でワークセンタデータを登録/更新するマイクロサービスです。
 
 * https://xxx.xxx.io/api/API_WORK_CENTER_SRV/creates/
 * https://xxx.xxx.io/api/API_WORK_CENTER_SRV/updates/
@@ -20,8 +20,8 @@ data-platform-api-work-center-creates-rmq-kube が対応する APIサービス �
 ## 本レポジトリ に 含まれる API名
 data-platform-api-work-center-creates-rmq-kube には、次の API をコールするためのリソースが含まれています。  
 
-* A_General（プラント - 基本データ）
-* A_StorageLocation（プラント - 保管場所データ）
+* A_General（ワークセンタ - 基本データ）
+* A_ProductionCapacity（ワークセンタ - 生産能力データ）
 
 ## API への 値入力条件 の 初期値
 data-platform-api-work-center-creates-rmq-kube において、API への値入力条件の初期値は、入力ファイルレイアウトの種別毎に、次の通りとなっています。  
@@ -37,7 +37,7 @@ accepter において 下記の例のように、データの種別（＝APIの�
 ここでは、"General" が指定されています。    
   
 ```
-	"api_schema": "DPFMwork-centerCreates",
+	"api_schema": "DPFM Work-centerCreates",
 	"accepter": ["General"],
 ```
   
@@ -46,7 +46,7 @@ accepter において 下記の例のように、データの種別（＝APIの�
 全データを取得する場合、sample.json は以下のように記載します。  
 
 ```
-	"api_schema": "DPFMwork-centerCreates",
+	"api_schema": "DPFM Work-centerCreates",
 	"accepter": ["All"],
 ```
 
@@ -74,8 +74,8 @@ func (c *DPFMAPICaller) AsyncCreates(
 		switch fn {
 		case "General":
 			go c.General(&wg, &mtx, sqlUpdateFin, log, &errs, input)
-		case "StorageLocation":
-			go c.StorageLocation(&wg, &mtx, sqlUpdateFin, log, &errs, input)
+		case "ProducutionCapasity":
+			go c.ProducutionCapasity(&wg, &mtx, sqlUpdateFin, log, &errs, input)
 		default:
 			wg.Done()
 		}
@@ -101,7 +101,7 @@ func (c *DPFMAPICaller) AsyncCreates(
 
 ## Output  
 本マイクロサービスでは、[golang-logging-library-for-data-platform](https://github.com/latonaio/golang-logging-library-for-data-platform) により、以下のようなデータがJSON形式で出力されます。  
-以下の sample.json の例は プラント の 一般データ が登録/更新された結果の JSON の例です。  
+以下の sample.json の例は ワークセンタ の 一般データ が登録/更新された結果の JSON の例です。  
 以下の項目のうち、"work-center"〜"IsMarkedForDeletion" は、/DPFM_API_Output_Formatter/type.go 内 の Type General {} による出力結果です。"cursor" ～ "time"は、golang-logging-library による 定型フォーマットの出力結果です。  
 
 ```
